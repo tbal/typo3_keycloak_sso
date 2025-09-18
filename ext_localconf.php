@@ -10,7 +10,7 @@ use TYPO3\CMS\Core\Information\Typo3Version;
 
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['features']['security.backend.enforceContentSecurityPolicy'] = false;
 $GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['enforceValidation'] = false;
-$GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludedParameters'] = ['idp_name', 'RelayState', 'option', 'SAMLRequest', 'SAMLResponse', 'SigAlg', 'Signature', 'type', 'app', 'code', 'state'];
+$GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludedParameters'] = ['idp_name', 'RelayState', 'option', 'SAMLRequest', 'SAMLResponse', 'SigAlg', 'Signature', 'type', 'app', 'code', 'state', 'logintype'];
 
 call_user_func(
     function () {
@@ -61,58 +61,6 @@ call_user_func(
             $extensionName,
             $pluginNameLogout,
             $cache_actions_logout
-        );
-
-
-        // wizards
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
-            'mod {
-            wizards.newContentElement.wizardItems.plugins {
-                elements {
-                    Feoidckey {
-                        iconIdentifier = keycloak_sso-plugin-feoidc
-                        title = LLL:EXT:keycloak_sso/Resources/Private/Language/locallang_db.xlf:tx_oauth_feoidc.name
-                        description = LLL:EXT:keycloak_sso/Resources/Private/Language/locallang_db.xlf:tx_oauth_feoidc.description
-                        tt_content_defValues {
-                            CType = list
-                            list_type = Feoidc
-                        }
-                    }
-                    Responsekey {
-                        iconIdentifier = keycloak_sso-plugin-response
-                        title = LLL:EXT:keycloak_sso/Resources/Private/Language/locallang_db.xlf:tx_oauth_response.name
-                        description = LLL:EXT:keycloak_sso/Resources/Private/Language/locallang_db.xlf:tx_oauth_response.description
-                        tt_content_defValues {
-                            CType = list
-                            list_type = Response
-                        }
-                    }
-                }
-                show = *
-            }
-       }'
-        );
-
-        $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
-        $iconRegistry->registerIcon(
-            'keycloak_sso-plugin-feoidc',
-            \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
-            ['source' => 'EXT:keycloak_sso/Resources/Public/Icons/Extension.png']
-        );
-        $iconRegistry->registerIcon(
-            'keycloak_sso-plugin-response',
-            \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
-            ['source' => 'EXT:keycloak_sso/Resources/Public/Icons/Extension.png']
-        );
-        $iconRegistry->registerIcon(
-            'keycloak_sso-plugin-logout',
-            \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
-            ['source' => 'EXT:keycloak_sso/Resources/Public/Icons/Extension.png']
-        );
-        $iconRegistry->registerIcon(
-            'keycloak_sso-plugin-bekey',
-            \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
-            ['source' => 'EXT:keycloak_sso/Resources/Public/Icons/Extension.png']
         );
 
     }

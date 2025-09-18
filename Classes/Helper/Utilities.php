@@ -5,6 +5,7 @@ namespace Miniorange\KeycloakSSO\Helper;
 use Exception;
 use PDO;
 use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessageQueue;
@@ -13,6 +14,7 @@ use TYPO3\CMS\Core\Messaging\Renderer\ListRenderer;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\PathUtility;
+use TYPO3\CMS\Core\Information\Typo3Version;
 
 const SEP = DIRECTORY_SEPARATOR;
 
@@ -62,8 +64,13 @@ class Utilities
 
     public static function fetchFromTable($col, $table)
     {
+        $typo3Version = MoUtilities::getTypo3Version();
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable($table);
-        $val = $queryBuilder->select($col)->from($table)->where($queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter(1, \PDO::PARAM_INT)))->execute()->fetch();
+        if($typo3Version > 12){
+            $val = $queryBuilder->select($col)->from($table)->where($queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter(1, Connection::PARAM_INT)))->executeQuery()->fetchAssociative();
+        }else{
+            $val = $queryBuilder->select($col)->from($table)->where($queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter(1, Connection::PARAM_INT)))->execute()->fetch();
+        }
         return $val ? $val[$col] : $val;
     }
 
