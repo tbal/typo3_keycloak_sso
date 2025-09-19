@@ -16,12 +16,8 @@
 use TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider;
 
 return [
-    'keycloak_sso-plugin-feoidc' => [
+    'keycloak_sso-plugin-bekey' => [
         'provider' => SvgIconProvider::class,
-        'source' => 'EXT:keycloak_sso/Resources/Public/Icons/Extension.png'
+        'source' => 'EXT:keycloak_sso/Resources/Public/Icons/Extension.svg',
     ],
-    'keycloak_sso-plugin-response' => [
-        'provider' => SvgIconProvider::class,
-        'source' => 'EXT:keycloak_sso/Resources/Public/Icons/Extension.png'
-    ]
 ];
