@@ -32,7 +32,7 @@ Extension Configurations
 	- Scope : openid profile email
 	- Authorization Endpoint : <Keycloak base URL>/realms/{realm-name}/protocol/openid-connect/auth
 	- Token Endpoint : <Keycloak base URL>/realms/{realm-name}/protocol/openid-connect/token
-	- User Info Endpoint : <Keycloak base URL>/realms/{realm-name}/protocol/openid-connect
+	- User Info Endpoint : <Keycloak base URL>/realms/{realm-name}/protocol/openid-connect/userinfo
 	- Set client credentials in : Header/Body
 
 .. figure:: Images/configurations.png
